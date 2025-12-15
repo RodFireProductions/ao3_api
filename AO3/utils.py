@@ -216,6 +216,26 @@ def workid_from_url(url):
         if workid.isdigit():
             return int(workid)
     return
+    
+def seriesid_from_url(url):
+    """Get the seriesid from an archiveofourown.org website url
+
+    Args:
+        url (str): Series URL 
+
+    Returns:
+        int: Series ID
+    """
+    split_url = url.split("/")
+    try:
+        index = split_url.index("series")
+    except ValueError:
+        return
+    if len(split_url) >= index+1:
+        seriesid = split_url[index+1].split("?")[0]
+        if seriesid.isdigit():
+            return int(seriesid)
+    return
 
 def comment(commentable, comment_text, session, fullwork=False, commentid=None, email="", name="", pseud=None):
     """Leaves a comment on a specific work
